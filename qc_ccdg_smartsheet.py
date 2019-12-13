@@ -68,13 +68,15 @@ with open(infile, 'r') as f:
 
     for line in fh:
 
+        print('\nAdding {} QC results to CCDG tracking sheet.'.format(line['WOID']))
+
         # create new row
         new_row = smart_sheet_client.models.Row()
         new_row.to_bottom = True
 
         # add cells to row
         for field in line:
-            print('\nAdding {} QC results to CCDG tracking sheet.'.format(line['WOID']))
+
             if field == 'QC Directory':
 
                 # qc files to append to row, get metrics for pass/fail samples.
@@ -95,7 +97,7 @@ with open(infile, 'r') as f:
             new_row.cells.append({'column_id': sheet_column_id_dict[field], 'value': line[field]})
 
         # write row to smartsheet
-        print('Sending new row.')
+        print('\nApending: {} QC Row'.format(line['WOID']))
         response = smart_sheet_client.Sheets.add_rows(1355593198921604, [new_row]).data
 
         # get new row id to append attachments
@@ -120,3 +122,5 @@ with open(infile, 'r') as f:
                                                               (file, open(file, 'rb'), 'application/Excel'))
 
         os.chdir(cwd)
+
+print('\nSmartsheet sample update complete.')
