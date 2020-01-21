@@ -77,6 +77,10 @@ with open(infile, 'r') as f:
         # add cells to row
         for field in line:
 
+            if field == 'Sample QC':
+                new_row.cells.append({'column_id': sheet_column_id_dict[field], 'value': int(line[field])})
+                continue
+
             if field == 'QC Directory':
 
                 # qc files to append to row, get metrics for pass/fail samples.
@@ -97,7 +101,7 @@ with open(infile, 'r') as f:
             new_row.cells.append({'column_id': sheet_column_id_dict[field], 'value': line[field]})
 
         # write row to smartsheet
-        print('\nApending: {} QC Row'.format(line['WOID']))
+        print('\nAppending: {} QC Row'.format(line['WOID']))
         response = smart_sheet_client.Sheets.add_rows(1355593198921604, [new_row]).data
 
         # get new row id to append attachments
