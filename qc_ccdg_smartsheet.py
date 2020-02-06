@@ -133,5 +133,5 @@ print('\nSmartsheet sample update complete.')
 if sys.argv[2]:
     if sys.argv[2] == 'ss':
         print('Updating QC sample status in Admin MSS sheets.')
-        print('Running: ss_qc {}')
-        subprocess.run(['ss_qc', infile])
+        print('Running: ss_qc {}'.format(infile))
+        subprocess.run(["ss_qc", infile])
