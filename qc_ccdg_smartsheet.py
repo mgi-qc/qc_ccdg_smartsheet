@@ -129,6 +129,9 @@ with open(infile, 'r') as f:
         os.chdir(cwd)
 
 print('\nSmartsheet sample update complete.')
-print('Updating QC sample status in Admin MSS sheets.')
-print('Running: ss_qc {}')
-subprocess.run(['ss_qc', infile])
+
+if sys.argv[2]:
+    if sys.argv[2] == 'ss':
+        print('Updating QC sample status in Admin MSS sheets.')
+        print('Running: ss_qc {}')
+        subprocess.run(['ss_qc', infile])
